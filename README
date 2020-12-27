@@ -1,0 +1,30 @@
+NAME: Rishab Abdulvahid
+EMAIL: rabdulvahid23@g.ucla.edu
+
+Meaningful contents:
+	   -lab1b-client.c
+	   -lab1b-server.c
+	   -Makefile 
+
+This code is intended to send all input from a client machine to a server machine, which will send this input to its own subshell
+through a TCP connection. The subshell output will be sent back to the client via the same TCP socket, which the client will then 
+output to the screen. Code can be shutdown from server side using ^D.
+
+lab1b-server.c usage: ./lab1b-server [--port=PORTNUM] [--shell=PROGRAM] [--compress]
+	       -port opens that port, used to establish a TCP socket which client can connect to
+	       -shell designates which program will be run in child forked from server. Under standard usage,
+	       program should be /bin/bash to execute a subshell
+	       -compress is used for optional compression of output sent back to the client using the zlib compression 
+	       libraries (note that compression must be unpacked from the client and, thus, for compressed communication,
+	       both client and server should pass --compress)
+
+lab1b-client.c usage: ./lab1b-client [--port=PORTNUM] [--compress] [--log=FILENAME]
+	       -port designates the port onto which the client will attempt to make a TCP connection to
+	       -compress is used for optional compression input sent to the server using the zlib compression 
+	       libraries (note that compression must be unpacked from the server and, thus, for compressed communication,
+	       both client and server should pass --compress)
+	       -log is used for designating a file onto which all communication (sent and received bytes) will be
+	       recorded
+
+Also includes a Makefile which can build two executables, lab1b-client and lab1b-server, using the default make target. Also has a clean
+target which will remove the executables.
